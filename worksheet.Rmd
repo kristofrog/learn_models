@@ -3,16 +3,53 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
 ```{r}
-plot(cars)
+#LOAD
+pacman::p_load(readxl,tidyverse,ggpubr,devtools)
+#dane <- read_excel("gospodarstwa.xls")
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+```{r} 
+#GGPUBR LEARN
+ggplot(dane, aes(wydg,dochg)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  stat_cor(method = "pearson", label.x = 20)
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+```{r}
+ggboxplot(dane,x="woj", y="dochg",
+          title = "Polish lands and expenses",
+          color="woj",palette = "rainbow")
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+ggboxplot(dane,x="woj",
+          y=c("dochg","wydg","d36"),
+          title=c("dochg","wydg","d36"),
+          ylab="Expression",
+          color="woj",palette = "rainbow")
+
+ggdensity(dane,
+       x = c("trb", "klm",  "d36"),
+       y = "..density..",
+       combine = TRUE,                
+       xlab = "Expression", 
+       add = "median",                  
+       rug = TRUE) 
+
+ggdensity(dane,
+       x = c("wydg", "dochg"),
+       y = "..count..",
+       color =".x.", fill = ".x.",
+       facet.by = "woj",
+       merge = TRUE,          
+       xlab = "Expression",
+       add = "median",                
+       rug = TRUE ,                 
+       palette = "jco"                  
+)
+```
+
+
+
+
