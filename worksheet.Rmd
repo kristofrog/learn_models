@@ -6,8 +6,10 @@ output: html_notebook
 
 ```{r}
 #LOAD
-pacman::p_load(readxl,tidyverse,ggpubr,devtools)
+pacman::p_load(readxl,tidyverse,ggpubr,devtools,plotly,tmap,tmaptools)
 #dane <- read_excel("gospodarstwa.xls")
+#gry <- read.csv("vgsales-12-4-2019-short.csv")
+#df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv")
 ```
 
 ```{r} 
@@ -49,6 +51,37 @@ ggdensity(dane,
        palette = "jco"                  
 )
 ```
+
+```{r}
+#PLOTLY LEARN
+
+fig <- plot_ly(dane, x=~woj,y=~klm,z=~dochg,color=~woj)
+fig <- fig <- fig %>% layout(
+    title = "Earnings grouped by lands and type of city",
+    scene = list(
+      xaxis = list(title = "Lands"),
+      yaxis = list(title = "Type of city"),
+      zaxis = list(title = "Earnings")
+    ))
+fig
+
+plot_ly(gry,x=~Name,y=~Publisher,z=~Global_Sales,color=~Publisher)
+
+plocik <- plot_ly(dane,x=~wydg,y=~dochg)
+plocik
+plocik2 <-subplot(
+plocik %>% add_markers(alpha = 0.2),
+plocik %>% add_histogram2d())
+plocik2
+
+#plotly maps
+
+plot_ly(df, type='choropleth', locations=df$CODE, z=df$GDP..BILLIONS., text=df$COUNTRY, colorscale="Rainbow")
+
+plot_geo(locationmode = 'USA-states', color = I("red"))
+
+```
+
 
 
 
