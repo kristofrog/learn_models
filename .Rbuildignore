@@ -1,0 +1,11 @@
+^myrepo\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^README-.*\.png$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
+analysis
+^Dockerfile$
+^circle\.yml$
+^\.travis\.yml$
